@@ -1,0 +1,141 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "name": "Untitled41.ipynb",
+      "provenance": [],
+      "authorship_tag": "ABX9TyMrF+GfgUvMs1/qNFu7XzXR",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/Tejaswini-1995/YouTube-Download-Website/blob/main/Website\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 346
+        },
+        "id": "_SZ3IFjCFToY",
+        "outputId": "4e71a442-c462-44e3-ec17-14edae526847"
+      },
+      "source": [
+        "from tkinter import *\r\n",
+        "from tkinter import ttk\r\n",
+        "from tkinter import filedialog\r\n",
+        "from pytube import YouTube\r\n",
+        "Folder_Name = \"\"\r\n",
+        "#File Location\r\n",
+        "def openLocation():\r\n",
+        "    global Folder_Name\r\n",
+        "    Folder_Name = filedialog.askdirectory()\r\n",
+        "    if(len(Folder_Name)>1):\r\n",
+        "        locationError.config(text=Folder_Name, fg =\"green\")\r\n",
+        "    else:\r\n",
+        "        locationError.config(text=\"please choose Folder!\", fg= \"red\")\r\n",
+        "\r\n",
+        "# download video\r\n",
+        "def DownloadVideo():\r\n",
+        "    choice = ytdchoices.get()\r\n",
+        "    url = ytdEntry.get()\r\n",
+        "    if (len(url)>1):\r\n",
+        "        ytdError.config(text=\"\")\r\n",
+        "        yt = YouTube(url)\r\n",
+        "\r\n",
+        "        if (choice == choices[0]):\r\n",
+        "            select= yt.streams.filter(progressive = True, file_extension= 'mp4').first()\r\n",
+        "        elif (choice == choices[1]):\r\n",
+        "            select= yt.streams.filter(progressive = True, file_extension= 'mp4').last()\r\n",
+        "        elif (choice == choices[2]):\r\n",
+        "            select= yt.streams.filter(progressive = True, file_extension= 'mp4').first()\r\n",
+        "        else:\r\n",
+        "            ytdError.confi(text= \"Paste Link again!\", fg=\"red\")\r\n",
+        "    #download Function\r\n",
+        "    select.download(Folder_Name)\r\n",
+        "    ytdError.config(text=\"Donload Completed!\")\r\n",
+        "\r\n",
+        "\r\n",
+        "\r\n",
+        "root = Tk()\r\n",
+        "root.title(\"YouTube Downloader window\")\r\n",
+        "root.geometry(\"450x500\") # set Window size\r\n",
+        "root.grid_columnconfigure(0,weight=1) #set all content in center\r\n",
+        "\r\n",
+        "#Youtube Link Label\r\n",
+        "ytdLabel = Label(root, text=\"Enter the URL\", font=(\"Arial\",16))\r\n",
+        "ytdLabel.grid()\r\n",
+        "\r\n",
+        "#Entry Box\r\n",
+        "ytdEntryVar = StringVar()\r\n",
+        "ytdEntry = Entry(root, width=60,textvariable=ytdEntryVar)\r\n",
+        "ytdEntry.grid()\r\n",
+        "\r\n",
+        "#Error Msg\r\n",
+        "ytdError = Label(root, text=\"Error Msg\", fg= \"red\", font=(\"Arial\",16))\r\n",
+        "ytdError.grid()\r\n",
+        "\r\n",
+        "#Asking save file folder\r\n",
+        "saveLabel = Label(root, text=\"save the video file\", font=(\"Arial\",16, \"bold\"))\r\n",
+        "saveLabel.grid()\r\n",
+        "\r\n",
+        "#Button to save file\r\n",
+        "saveEntry = Button(root, width=10, bg = \"red\", fg = \"white\", text=\"Choose Path\", command=openLocation)\r\n",
+        "saveEntry.grid()\r\n",
+        "\r\n",
+        "#Error msg location\r\n",
+        "locationError = Label(root, text=\"Error Msg of Path\", fg=\"red\", font=(\"Arial\",12))\r\n",
+        "locationError.grid()\r\n",
+        "\r\n",
+        "#Download Quality\r\n",
+        "ytdQuality = Label(root, text=\"select Quality\", font=(\"Arial\",16))\r\n",
+        "ytdQuality.grid()\r\n",
+        "\r\n",
+        "#combobox\r\n",
+        "choices= [\"144p\", \"240p\",\"360p\", \"only Audio\"]\r\n",
+        "ytdchoices = ttk.Combobox(root, values= choices)\r\n",
+        "ytdchoices.grid()\r\n",
+        "\r\n",
+        "#Download Button\r\n",
+        "downloadbtn = Button(root, text=\"Download\", width=10, bg=\"blue\", fg=\"white\", command= DownloadVideo)\r\n",
+        "downloadbtn.grid()\r\n",
+        "\r\n",
+        "#developer Label\r\n",
+        "developerlabel = Label(root, text=\"Developers\", font=(\"Arial\",16))\r\n",
+        "developerlabel.grid()\r\n",
+        "\r\n",
+        "\r\n",
+        "root.mainloop()\r\n"
+      ],
+      "execution_count": 2,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "TclError",
+          "evalue": "ignored",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mTclError\u001b[0m                                  Traceback (most recent call last)",
+            "\u001b[0;32m<ipython-input-2-fc6942ade44f>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[1;32m     35\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     36\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m---> 37\u001b[0;31m \u001b[0mroot\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mTk\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m     38\u001b[0m \u001b[0mroot\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mtitle\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m\"YouTube Downloader window\"\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     39\u001b[0m \u001b[0mroot\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mgeometry\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m\"450x500\"\u001b[0m\u001b[0;34m)\u001b[0m \u001b[0;31m# set Window size\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;32m/usr/lib/python3.7/tkinter/__init__.py\u001b[0m in \u001b[0;36m__init__\u001b[0;34m(self, screenName, baseName, className, useTk, sync, use)\u001b[0m\n\u001b[1;32m   2021\u001b[0m                 \u001b[0mbaseName\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mbaseName\u001b[0m \u001b[0;34m+\u001b[0m \u001b[0mext\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   2022\u001b[0m         \u001b[0minteractive\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;36m0\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m-> 2023\u001b[0;31m         \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mtk\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0m_tkinter\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mcreate\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mscreenName\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mbaseName\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mclassName\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0minteractive\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mwantobjects\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0museTk\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0msync\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0muse\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m   2024\u001b[0m         \u001b[0;32mif\u001b[0m \u001b[0museTk\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   2025\u001b[0m             \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_loadtk\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;31mTclError\u001b[0m: no display name and no $DISPLAY environment variable"
+          ]
+        }
+      ]
+    }
+  ]
+}
