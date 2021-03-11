@@ -1,0 +1,96 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "name": "Untitled42.ipynb",
+      "provenance": [],
+      "authorship_tag": "ABX9TyPMVScWPUtR4wc6DecSUqTz",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/Tejaswini-1995/YouTube-Download-Website/blob/main/Youtube%20Download%20Website\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 363
+        },
+        "id": "oElYUBPWT1AN",
+        "outputId": "b29bafda-3385-45f5-93ac-2268430ad75c"
+      },
+      "source": [
+        "# importing tkinter\r\n",
+        "from tkinter import *\r\n",
+        "# importing YouTube module\r\n",
+        "from pytube import YouTube\r\n",
+        "# initializing tkinter\r\n",
+        "root = Tk()\r\n",
+        "# setting the geometry of the GUI\r\n",
+        "root.geometry(\"400x350\")\r\n",
+        "# setting the title of the GUI\r\n",
+        "root.title(\"Youtube video downloader application\")\r\n",
+        "# defining download function\r\n",
+        "def download():\r\n",
+        "    # using try and except to execute program without errors\r\n",
+        "    try:\r\n",
+        "        myVar.set(\"Downloading...\")\r\n",
+        "        root.update()\r\n",
+        "        YouTube(link.get()).streams.first().download()\r\n",
+        "        link.set(\"Video downloaded successfully\")\r\n",
+        "    except Exception as e:\r\n",
+        "        myVar.set(\"Mistake\")\r\n",
+        "        root.update()\r\n",
+        "        link.set(\"Enter correct link\")\r\n",
+        "\r\n",
+        "# created the Label widget to welcome user\r\n",
+        "Label(root, text=\"Welcome to youtube\\nDownloader Application\", font=\"Consolas 15 bold\").pack()\r\n",
+        "# declaring StringVar type variable\r\n",
+        "myVar = StringVar()\r\n",
+        "# setting the default text to myVar\r\n",
+        "myVar.set(\"Enter the link below\")\r\n",
+        "# created the Entry widget to ask user to enter the url\r\n",
+        "Entry(root, textvariable=myVar, width=40).pack(pady=10)\r\n",
+        "# declaring StringVar type variable\r\n",
+        "link = StringVar()\r\n",
+        "# created the Entry widget to get the link\r\n",
+        "Entry(root, textvariable=link, width=40).pack(pady=10)\r\n",
+        "# created and called the download function to download video\r\n",
+        "Button(root, text=\"Download video\", command=download).pack()\r\n",
+        "# running the mainloop\r\n",
+        "root.mainloop()"
+      ],
+      "execution_count": 3,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "ModuleNotFoundError",
+          "evalue": "ignored",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mModuleNotFoundError\u001b[0m                       Traceback (most recent call last)",
+            "\u001b[0;32m<ipython-input-3-b765d7b53aea>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[1;32m      2\u001b[0m \u001b[0;32mfrom\u001b[0m \u001b[0mtkinter\u001b[0m \u001b[0;32mimport\u001b[0m \u001b[0;34m*\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      3\u001b[0m \u001b[0;31m# importing YouTube module\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m----> 4\u001b[0;31m \u001b[0;32mfrom\u001b[0m \u001b[0mpytube\u001b[0m \u001b[0;32mimport\u001b[0m \u001b[0mYouTube\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m      5\u001b[0m \u001b[0;31m# initializing tkinter\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      6\u001b[0m \u001b[0mroot\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mTk\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;31mModuleNotFoundError\u001b[0m: No module named 'pytube'",
+            "",
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0;32m\nNOTE: If your import is failing due to a missing package, you can\nmanually install dependencies using either !pip or !apt.\n\nTo view examples of installing some common dependencies, click the\n\"Open Examples\" button below.\n\u001b[0;31m---------------------------------------------------------------------------\u001b[0m\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
